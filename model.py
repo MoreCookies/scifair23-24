@@ -1,6 +1,5 @@
-
 #import libraries
-import numpy as np
+import numby as np
 import pandas as pd
 
 import tensorflow as tf
@@ -10,6 +9,7 @@ from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 
 #do data manipulation 
+
 
 #placeholder
 model = k.Sequential([
@@ -30,7 +30,7 @@ model = k.Sequential([
 """
 standard block format, add more blocks w/ increasing by power of 2 filters
 
-layers.BatchNomralization(renorm=True),
+layers.BatchNormalization(renorm=True),
 layers.Conv2D(filters=64, kernel_size=3, activation='relu', padding='same'), #kernel filter should be "glorot_uniform" not sure tho, can specify if u want
 layers.MaxPool2D(),
 
