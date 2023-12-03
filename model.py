@@ -9,7 +9,14 @@ from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 
 #do data manipulation 
-
+df1 = x
+df2 = y
+df1.merge(df2, how = 'a', on = ['b', 'c'])
+    #Renaming Series for merging
+df1.rename(
+    columns={"OLD COLUMN NAME": "NEW COLUMN NAME", "OLD COLUMN NAME 2": "NEW COLUMN NAME 2"},
+    inplace=True,
+)
 
 #placeholder
 #PLAN
