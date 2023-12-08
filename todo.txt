@@ -1,2 +1,12 @@
 basic features needed to be added:
--??
+-create layers for model
+-compile/organize datasets
+--> test, val, train sets
+-train model
+-optimize (???)
+-(optional, but could add a lot to the project) --> create an app
+    - add info on further self-diagnosis outside of the model
+    - add info on the condition
+    - add menu, history
+    - camera feature --> take photo
+    - amogus!!!
