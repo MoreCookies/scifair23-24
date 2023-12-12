@@ -9,7 +9,14 @@ from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 
 #do data manipulation 
-
+df1 = x
+df2 = y
+df1.merge(df2, how = 'a', on = ['b', 'c'])
+    #Renaming Series for merging
+df1.rename(
+    columns={"OLD COLUMN NAME": "NEW COLUMN NAME", "OLD COLUMN NAME 2": "NEW COLUMN NAME 2"},
+    inplace=True,
+)
 
 #placeholder
 #PLAN
@@ -22,29 +29,31 @@ foo = 64
 data = None #set data to this value
 class_num = data.shape()-2 #number of unique labels in data
 
-x = layers.Conv2D(foo, 3, padding="same")(data)
-x = layers.BatchNormalization()(x) #(x) --> using previous layer as input for next layer
-x = layers.Activation("relu")(x)
 
-for filter in [64,128,256, 512]:
-    model = layers.Conv2D(filter, 3, padding="same",activation="relu")(x) # (filters, kernel_size, padding, activation)
-    model = layers.BatchNormalization()(x)
 
-    model = layers.Conv2D(filter, 3, padding="same",activation="relu")(x)
-    model = layers.BatchNormalization()(x)
+model = layers.Conv2D(foo, 3, padding="same")(data)
+model = layers.BatchNormalization()(model) #(x) --> using previous layer as input for next layer
+model = layers.Activation("relu")(model)
 
-    model = layers.MaxPooling2D(3, strides=2, padding="same")(x) # (pool_size, strides, padding)
+for filter in [64,128,256, 512, 1028]:
+    model = layers.Conv2D(filter, 3, padding="same",activation="relu")(model) # (filters, kernel_size, padding, activation)
+    model = layers.BatchNormalization()(model)
+
+    model = layers.Conv2D(filter, 3, padding="same",activation="relu")(model)
+    model = layers.BatchNormalization()(model)
+
+    model = layers.MaxPooling2D(3, strides=2, padding="same")(model) # (pool_size, strides, padding)
 
 #expanding u-net
 
-for filter in [512, 256, 128, 64]:
-    model = layers.Conv2DTranspose(filter, 3, padding="same",activation="relu")(x)
-    model = layers.BatchNormalization()(x)
+for filter in [1028, 512, 256, 128, 64]:
+    model = layers.Conv2DTranspose(filter, 3, padding="same",activation="relu")(model)
+    model = layers.BatchNormalization()(model)
 
-    model = layers.Conv2DTranspose(filter, 3, padding="same",activation="relu")(x)
-    model = layers.BatchNormalization()(x)
+    model = layers.Conv2DTranspose(filter, 3, padding="same",activation="relu")(model)
+    model = layers.BatchNormalization()(model)
 
-    model =  layers.UpSampling2D(2)(x)
+    model =  layers.UpSampling2D(2)(model)
 
 classification = layers.Conv2D(class_num, 3, activation="softmax", padding="same")(x)
 
