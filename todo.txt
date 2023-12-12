@@ -1,9 +1,6 @@
 basic features needed to be added:
 -use xception or inceptionv4 for transfer learning
 -create layers for feature column data --> use both image + .csv files for classification
--add image randomization layers
--use sgd & compile
--compile/organize datasets
 --> val, train sets --> easy if the datasets are already merged
 -train model
 -optimize (change around some values)
