@@ -26,7 +26,7 @@ x = layers.Conv2D(foo, 3, padding="same")(data)
 x = layers.BatchNormalization()(x) #(x) --> using previous layer as input for next layer
 x = layers.Activation("relu")(x)
 
-for filter in [64,128,256, 512, 1028]:
+for filter in [64,128,256, 512]:
     model = layers.Conv2D(filter, 3, padding="same",activation="relu")(x) # (filters, kernel_size, padding, activation)
     model = layers.BatchNormalization()(x)
 
@@ -37,7 +37,7 @@ for filter in [64,128,256, 512, 1028]:
 
 #expanding u-net
 
-for filter in [1028, 512, 256, 128, 64]:
+for filter in [512, 256, 128, 64]:
     model = layers.Conv2DTranspose(filter, 3, padding="same",activation="relu")(x)
     model = layers.BatchNormalization()(x)
 
@@ -79,8 +79,5 @@ layers.MaxPool2D(),
 
 
 #compilation code here
-optimizer = tf.k.optimizers.Adam(epsilon=0.01) #use adam
-
-"""
+optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
 model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=["binary_accuracy"]) # we can actually use metrics without matplotlib!!!! woww!!! i think
-"""
