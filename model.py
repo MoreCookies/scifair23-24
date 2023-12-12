@@ -18,6 +18,7 @@ df1.rename(
     inplace=True,
 )
 
+
 #placeholder
 #PLAN
 #create u-net architecture --> segmented input map
@@ -27,9 +28,15 @@ df1.rename(
 #input layer
 foo = 64
 data = None #set data to this value
+train_ds, test_ds = tf.keras.utils.split_dataset(data, left_size=0.8) #SPLIT DATASET --> COMBINE ALL DATA INTO ONE VARIABLE AND THIS WILL SPLIT IT
 class_num = data.shape()-2 #number of unique labels in data
 
+model = layers.InputLayer(input_shape=[256,256, 3]) #change later
 
+#data augmentation
+model = preprocessing.RandomContrast(factor=0.1)(model)
+model = preprocessing.RandomFlip()(model) #horizontal and vertical flipping
+model = preprocessing.RandomRotation(factor=0.1)(model)
 
 model = layers.Conv2D(foo, 3, padding="same")(data)
 model = layers.BatchNormalization()(model) #(x) --> using previous layer as input for next layer
@@ -57,36 +64,15 @@ for filter in [1028, 512, 256, 128, 64]:
 
 classification = layers.Conv2D(class_num, 3, activation="softmax", padding="same")(x)
 
-model_final = k.Model(data, classification)
-
-""" 
-model = k.Sequential([
-    layers.Conv2D(64, activation="relu"),
-    layers.Dense(1, activation="sigmoid")
-])
-#https://www.geeksforgeeks.org/u-net-architecture-explained/ --> unet structure, easy to implement
-#functions to add variation to data
-# preprocessing.RandomContrast(factor=0.5),
-#preprocessing.RandomFlip(mode='horizontal'), # meaning, left-to-right
-# preprocessing.RandomFlip(mode='vertical'), # meaning, top-to-bottom
-# preprocessing.RandomWidth(factor=0.15), # horizontal stretch
-# preprocessing.RandomRotation(factor=0.20),
-# preprocessing.RandomTranslation(height_factor=0.1, width_factor=0.1),
-
-#layers.InputLayer(input_shape=[]), specify imput layer
-
-"""
-"""
-standard block format, add more blocks w/ increasing by power of 2 filters
-
-layers.BatchNormalization(renorm=True),
-layers.Conv2D(filters=64, kernel_size=3, activation='relu', padding='same'), #kernel filter should be "glorot_uniform" not sure tho, can specify if u want
-layers.MaxPool2D(),
-
-""" # or try to create U-Net structure
-    
+model_final = tf.keras.Model(data, classification)
 
 
 #compilation code here
 optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
 model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=["binary_accuracy"]) # we can actually use metrics without matplotlib!!!! woww!!! i think
+
+callback_list = [tf.keras.callbacks.EarlyStopping(patience=2)] #can adjust to improve accuracy
+
+#early stopping used to prevent overfitting
+
+model.fit(train_ds, epochs=80, callbacks=callback_list)
