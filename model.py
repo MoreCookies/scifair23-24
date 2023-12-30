@@ -31,7 +31,7 @@ data = None #set data to this value
 train_ds, test_ds = tf.keras.utils.split_dataset(data, left_size=0.8) #SPLIT DATASET --> COMBINE ALL DATA INTO ONE VARIABLE AND THIS WILL SPLIT IT
 class_num = data.shape()-2 #number of unique labels in data
 
-model = layers.InputLayer(input_shape=[256,256, 3]) #change later
+model = layers.InputLayer(input_shape=[256,256]) #change later
 
 #data augmentation
 model = preprocessing.RandomContrast(factor=0.1)(model)
