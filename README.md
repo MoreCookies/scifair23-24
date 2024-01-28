@@ -2,12 +2,11 @@ This is the model for morecookies and arno99xx's 23-24 science fair.
 
 Dataset we used: <a href="https://challenge.isic-archive.com/data/#2018" target="_blank">ISIC2018</a>
 
-To download and unzip the dataset, run ```python downloader.py``` in the bash shell.
+To download and unzip the dataset, run ```python downloader.py``` in the bash shell. This will take a while.
+After everything has been run, run all cells in ```model_test.ipynb```.
 
-The model script is located in model_test.ipynb. Change sections with ```CHANGE TO YOUR OWN FILE PATH``` to the locations of your local ISIC2018 dataset. More polishing in file manipulation and organization will be done in the future.
+```model_test.ipynb``` contains the code for a segmentation and classification model. They are not combined yet. 
+The classification model on its own has ~90% accuracy.
+The segmentation model has ~88% accuracy.
 
-Currently, these are our model results:
-
-Model | Segmentation | Classification 
---- | ---
-Accuracy | 90.2% | 85.71%
+WIP

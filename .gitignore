@@ -296,7 +296,7 @@ node_modules
 /_python_build
 __pycache__
 *.swp
-.vscode/
+.vscode/**
 cmake_build/
 tensorflow/contrib/cmake/_build/
 .idea/**

@@ -34,6 +34,7 @@ def unzip_all():
         name = item[0]
         url = item[1]
         filename = f"{name}.zip"
+        print(filename)
         with zipfile.ZipFile(filename, 'r') as zip_ref:
             print(f"unzipping {filename} to folder")
             zip_ref.extractall(f"{name}")
