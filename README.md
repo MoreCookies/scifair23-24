@@ -6,7 +6,6 @@ To download and unzip the dataset, run ```python downloader.py``` in the bash sh
 After everything has been run, run all cells in ```model_test.ipynb```.
 
 ```model_test.ipynb``` contains the code for a segmentation and classification model. They are not combined yet. 
-The classification model on its own has ~90% accuracy.
-The segmentation model has ~88% accuracy.
+
 
 WIP
