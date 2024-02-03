@@ -22,6 +22,7 @@ mlruns
 /test*
 /train*
 /validation*
+/ham10000*
 *.h5
 *.keras
 *.tflite
